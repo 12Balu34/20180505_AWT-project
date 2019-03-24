@@ -87,12 +87,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/webjars/**",            // swagger-ui webjars
                         "/swagger-resources/**",  // swagger-ui resources
                         "/configuration/**",
-                        "/swagger-ui.html")
+                        "/swagger-ui.html",
+                        "/h2/**")
                 .permitAll()
                 .anyRequest()
                 .authenticated();
 
         // Add our custom JWT security filter
         http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
+        http.headers().frameOptions().sameOrigin();
     }
 }
